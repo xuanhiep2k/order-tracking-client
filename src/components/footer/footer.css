@@ -1,0 +1,17 @@
+.footer {
+    width: 100%;
+    height: auto;
+    display: flex;
+    bottom: 0;
+    position: fixed;
+    margin: 0 auto;
+    background-color: rgb(238, 10, 10);
+    align-items: center;
+    justify-content: center;
+}
+
+.footer>a {
+    color: white;
+    text-decoration: none;
+    size: 1.5rem;
+}
