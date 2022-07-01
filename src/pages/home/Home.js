@@ -1,55 +1,33 @@
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
-import { useForm } from 'react-hook-form';
+import React, { useState, useEffect } from 'react'
 import './home.css'
-import About from '../../components/about/About.js';
-import OrderTracking from '../../components/orderTrackingDetail/OrderTracking';
+import NotFound from '../../components/notFound/NotFound';
+import ProgressBar from '../../components/progressBar/ProgressBar';
 
-import { getTrackings } from '../../redux/actions/getOrderTrackingAction.js'
+import { Link } from 'react-router-dom';
+
 
 function Home() {
-
-    const [showOrderTracking, setShowOrderTracking] = React.useState(false)
-
-    const dispatch = useDispatch();
     const [code, setCode] = useState();
-
-    const trackingByCode = () => {
-        if (code.length !== 0) {
-            dispatch(getTrackings(code));
-            setShowOrderTracking(true);
-        }
-    }
-
-    const {
-        register,
-        handleSubmit,
-        formState: { errors }
-    } = useForm();
-
-    const onSubmit = () => {
-    }
+    const inputRef = React.createRef()
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="home">
-                <div className="form-tracking">
-                    <div class="input-group mb-3 input-group-lg">
-                        <input required {...register("code", {
-                            required: true
-                        })} type="text" class="form-control" placeholder="Enter order number here..." onChange={(e) => setCode(e.target.value)} value={code ?? ""} aria-describedby="basic-addon2" />
 
+        <div className="home">
+            <div className="form-tracking">
+                <div class="input-group mb-3 input-group-lg">
+                    <input required type="text" class="form-control" onChange={(e) => setCode(e.target.value)} value={code ?? ""} placeholder="Enter order number here..." aria-describedby="basic-addon2" />
+                    <Link to={`/getTrack/${code}`} className="info__button">
                         <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="submit" onClick={trackingByCode}>TRACK PACKAGE</button>
-
+                            <button class="btn btn-outline-secondary" type="submit"  >TRACK PACKAGE</button>
                         </div>
-                    </div>
+                    </Link>
+
                 </div>
 
-                {showOrderTracking ? <OrderTracking code={code} /> : null}
-                <About />
             </div>
-        </form>
+
+
+        </div >
     )
 }
 
